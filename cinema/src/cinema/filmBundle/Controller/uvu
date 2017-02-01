@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="page_accueil")
      */
     public function indexAction()
     {
@@ -18,8 +18,8 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/films")
-     */
+    * @Route("/films", name="page_films")
+    */
     public function listAction()
     {
         $films = $this->getDoctrine()->getRepository('cinemafilmBundle:Film')->findAll();
@@ -33,8 +33,8 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/film/{id}", requirements={"id": "\d+"})
-     */
+    * @Route("/film/{id}", requirements={"id": "\d+"}, name="page_film")
+    */
     public function showAction($id)
     {
         $film = $this->getDoctrine()->getRepository('cinemafilmBundle:Film')->find($id);
@@ -46,8 +46,8 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/realisateurs", name="page_realisateurs")
-     */
+    * @Route("/realisateurs", name="page_realisateurs")
+    */
     public function listRea()
     {
         $realisateurs = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->findAll();
@@ -55,23 +55,21 @@ class DefaultController extends Controller
         $titre_de_la_page = 'Réalisateurs';
 
         return $this->render(
-            'cinemafilmBundle:Personne:list.html.twig',
+            'cinemafilmBundle:personne:list.html.twig',
             ['realisateurs' => $realisateurs, 'titre' => $titre_de_la_page]
         );
     }
 
     /**
-     * @Route("/realisateur/{id}", requirements={"id": "\d+"}, name="page_realisateur")
-     */
+    * @Route("/realisateur/{id}", requirements={"id": "\d+"}, name="page_realisateur")
+    */
     public function showRea($id)
     {
         $realisateur = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->find($id);
 
         return $this->render(
-            'cinemafilmBundle:Personne:show.html.twig',
+            'cinemafilmBundle:personne:show.html.twig',
             ['realisateur' => $realisateur]
         );
     }
-
-
 }
