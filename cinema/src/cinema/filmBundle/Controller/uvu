@@ -1,75 +1,11 @@
-<?php
-
-namespace cinema\filmBundle\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class DefaultController extends Controller
-{
-    /**
-     * @Route("/", name="page_accueil")
-     */
-    public function indexAction()
-    {
-        return $this->render('cinemafilmBundle:Default:index.html.twig');
-    }
-
-    /**
-    * @Route("/films", name="page_films")
-    */
-    public function listAction()
-    {
-        $films = $this->getDoctrine()->getRepository('cinemafilmBundle:Film')->findAll();
-
-        $titre_de_la_page = 'Films de la bibliothèque';
-
-        return $this->render(
-            'cinemafilmBundle:Film:list.html.twig',
-            ['films' => $films, 'titre' => $titre_de_la_page]
-        );
-    }
-
-    /**
-    * @Route("/film/{id}", requirements={"id": "\d+"}, name="page_film")
-    */
-    public function showAction($id)
-    {
-        $film = $this->getDoctrine()->getRepository('cinemafilmBundle:Film')->find($id);
-
-        return $this->render(
-            'cinemafilmBundle:Film:show.html.twig',
-            ['film' => $film]
-        );
-    }
-
-    /**
-    * @Route("/realisateurs", name="page_realisateurs")
-    */
-    public function listRea()
-    {
-        $realisateurs = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->findAll();
-
-        $titre_de_la_page = 'Réalisateurs';
-
-        return $this->render(
-            'cinemafilmBundle:personne:list.html.twig',
-            ['realisateurs' => $realisateurs, 'titre' => $titre_de_la_page]
-        );
-    }
-
-    /**
-    * @Route("/realisateur/{id}", requirements={"id": "\d+"}, name="page_realisateur")
-    */
-    public function showRea($id)
-    {
-        $realisateur = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->find($id);
-
-        return $this->render(
-            'cinemafilmBundle:personne:show.html.twig',
-            ['realisateur' => $realisateur]
-        );
-    }
-}
+<div class="thumbnail">
+                <div class="caption-full">
+                    <h4 class="pull-right">{{ film.genre }}</h4>
+                    <h4>{{ film.titre }}</h4>
+                    <p>{{ film.synopsis }}</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">sorti le {{ film.date | date('d/m/Y') }}</p>
+                    <p>Réalisé par : <a href="cinema-films-realisateur.html">{{ film.realisateur }}</a></p>
+                </div>
+            </div>
