@@ -50,7 +50,7 @@ class personne
     private $films;
 
     public function __toString() {
-        return $this->prenom.' '.$this->nom;
+        return $this->name;
     }
 
 
@@ -158,35 +158,5 @@ class personne
     {
         return $this->films;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->films = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add film
-     *
-     * @param \cinema\filmBundle\Entity\Film $film
-     *
-     * @return personne
-     */
-    public function addFilm(\cinema\filmBundle\Entity\Film $film)
-    {
-        $this->films[] = $film;
-
-        return $this;
-    }
-
-    /**
-     * Remove film
-     *
-     * @param \cinema\filmBundle\Entity\Film $film
-     */
-    public function removeFilm(\cinema\filmBundle\Entity\Film $film)
-    {
-        $this->films->removeElement($film);
-    }
 }
+

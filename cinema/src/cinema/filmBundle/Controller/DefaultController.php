@@ -18,7 +18,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/films")
+     * @Route("/films", name="page_film")
      */
     public function listAction()
     {
@@ -65,11 +65,13 @@ class DefaultController extends Controller
      */
     public function showRea($id)
     {
-        $realisateur = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->find($id);
 
+
+        $films = $this->getDoctrine()->getRepository('cinemafilmBundle:Film')->findByRealisateur($id);
+        $realisateur = $this->getDoctrine()->getRepository('cinemafilmBundle:personne')->find($id);
         return $this->render(
-            'cinemafilmBundle:Personne:show.html.twig',
-            ['realisateur' => $realisateur]
+            'cinemafilmBundle:personne:show.html.twig',
+            ['films' => $films, 'realisateur' => $realisateur ]
         );
     }
 
